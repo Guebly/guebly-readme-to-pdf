@@ -123,8 +123,13 @@ function Stats({ md }: { md: string }) {
   );
 }
 
-function getPdfStyles(docTheme: DocTheme): string {
+function getPdfStyles(docTheme: DocTheme, date: string): string {
   const base = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');`;
+  const footer = `
+    .guebly-footer{margin-top:56px;padding-top:14px;border-top:1px solid rgba(0,0,0,.09);display:flex;align-items:center;justify-content:space-between;gap:12}
+    .guebly-footer span{font-size:11px;color:#9CA3AF;font-family:'Plus Jakarta Sans',sans-serif}
+    .guebly-footer img{height:16px;width:auto;opacity:.5}
+  `;
   if (docTheme === "terminal") return base + `
     body{background:#1C1C27;color:#E2E8F0;font-family:'JetBrains Mono',monospace;padding:48px;line-height:1.7}
     h1{color:#7EB0FF;font-size:2em;border-bottom:2px solid #2D2D42;padding-bottom:10px;margin-bottom:20px}
@@ -141,7 +146,9 @@ function getPdfStyles(docTheme: DocTheme): string {
     a{color:#7EB0FF} hr{border:none;border-top:1px solid #2D2D42;margin:20px 0}
     ul,ol{padding-left:24px;margin:8px 0} li{margin:4px 0}
     img{max-width:100%;border-radius:8px}
-  `;
+    .guebly-footer{border-top-color:rgba(255,255,255,.08)!important}
+    .guebly-footer span{color:#4B5563!important}
+  ` + footer;
   if (docTheme === "minimal") return base + `
     body{background:#fff;color:#141210;font-family:'Plus Jakarta Sans',sans-serif;padding:64px;max-width:740px;margin:auto;line-height:1.75}
     h1{font-size:2.2em;font-weight:800;letter-spacing:-.04em;border-bottom:3px solid #141210;padding-bottom:10px;margin-bottom:20px}
@@ -157,7 +164,7 @@ function getPdfStyles(docTheme: DocTheme): string {
     a{color:#141210} hr{border:none;border-top:2px solid #141210;margin:20px 0}
     ul,ol{padding-left:24px;margin:8px 0} li{margin:4px 0}
     img{max-width:100%}
-  `;
+  ` + footer;
   return base + `
     body{background:#fff;color:#141210;font-family:'Plus Jakarta Sans',sans-serif;padding:56px;max-width:820px;margin:auto;line-height:1.75}
     h1{font-size:2.2em;font-weight:800;letter-spacing:-.04em;color:#141210;border-bottom:3px solid #1A56DB;padding-bottom:10px;margin-bottom:20px}
@@ -176,7 +183,7 @@ function getPdfStyles(docTheme: DocTheme): string {
     ul,ol{padding-left:24px;margin:8px 0} li{margin:5px 0}
     img{max-width:100%;border-radius:8px;margin:8px 0}
     strong{font-weight:700} em{font-style:italic;color:#555}
-  `;
+  ` + footer;
 }
 
 export default function App() {
@@ -251,16 +258,15 @@ export default function App() {
 
   const printPdf = useCallback(() => {
     const win = window.open("", "_blank"); if (!win) return;
-    win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${filename || "README"}</title><style>${getPdfStyles(docTheme)}</style></head><body>${htmlPreview}</body></html>`);
+    const date = new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
+    const footerHtml = `<div class="guebly-footer"><img src="https://www.guebly.com.br/guebly.png" alt="Guebly" /><span>Emitido por Guebly &middot; pdf.guebly.com.br &middot; ${date}</span></div>`;
+    win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${filename || "README"}</title><style>${getPdfStyles(docTheme, date)}</style></head><body>${htmlPreview}${footerHtml}</body></html>`);
     win.document.close();
     setTimeout(() => win.print(), 500);
     toast("success", "Abrindo para impressão...");
   }, [htmlPreview, docTheme, filename, toast]);
 
   // Logo src based on theme
-  const logoSrc = theme === "dark"
-    ? "https://www.guebly.com.br/logo-email.png"
-    : "https://www.guebly.com.br/logo-email.png";
 
   const F = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
 
@@ -290,9 +296,9 @@ export default function App() {
           {/* Logo */}
           <div className="au0" style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
             <img
-              src={logoSrc}
+              src="https://www.guebly.com.br/guebly.png"
               alt="Guebly"
-              style={{ height: 28, width: "auto", objectFit: "contain" }}
+              style={{ height: 30, width: "auto", objectFit: "contain" }}
               onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
             <div style={{ width: 1, height: 18, background: "var(--border)" }} />
