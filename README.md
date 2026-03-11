@@ -1,18 +1,19 @@
 <div align="center">
 
-<img src="https://www.guebly.com.br/logo-email.png" alt="Guebly" height="48" />
+<img src="public/icon.png" alt="Guebly" width="80" />
 
 # guebly.pdf
 
 **README to PDF Engine**
 
-Transform any `README.md` into a premium-quality PDF — with live preview, social formatter, and multiple document themes.
+Transforme qualquer `README.md` em um PDF premium — com live preview, formatador social e múltiplos temas de documento.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-blue)](https://github.com/guebly/guebly-readme-to-pdf)
 [![Made by Guebly](https://img.shields.io/badge/Made%20by-Guebly-7c3aed)](https://guebly.com.br)
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-black)](https://pdf.guebly.com.br)
 
-[Demo](#) · [Report Bug](https://github.com/guebly/guebly-readme-to-pdf/issues) · [Request Feature](https://github.com/guebly/guebly-readme-to-pdf/issues)
+[🌐 Acessar](https://pdf.guebly.com.br) · [🐛 Reportar bug](https://github.com/guebly/guebly-readme-to-pdf/issues) · [✨ Sugerir feature](https://github.com/guebly/guebly-readme-to-pdf/issues)
 
 </div>
 
@@ -20,14 +21,14 @@ Transform any `README.md` into a premium-quality PDF — with live preview, soci
 
 ## ✨ Features
 
-- 📁 **Drag & Drop upload** — arraste seu `.md`, `.txt` ou `.markdown` direto
+- 📁 **Drag & Drop** — arraste seu `.md`, `.txt` ou `.markdown` direto na tela
 - 👁 **Live preview** — visualizador renderizado em tempo real
 - 🎨 **3 temas de exportação** — Terminal, Premium Docs e Minimal
-- 📤 **Export PDF** — renderizado via browser, sem servidor
+- 📤 **Export PDF** — renderizado via browser, sem servidor, sem dados enviados
 - 🌐 **Formatador social** — LinkedIn, Instagram e WhatsApp com split por blocos
-- 🌙 **Dark / Light mode** — persistido no `localStorage`
 - 📊 **Stats em tempo real** — palavras, chars, linhas, títulos, blocos de código
-- 🔒 **Zero coleta de dados** — tudo roda no client, nada vai a servidor
+- 🌙 **Dark / Light mode** — persistido no `localStorage`
+- 🔒 **Zero coleta de dados** — tudo roda client-side
 - 🧩 **Zero deps de runtime** — parser e formatadores escritos à mão em TypeScript
 
 ---
@@ -70,21 +71,21 @@ npm run preview
 
 ```
 guebly-readme-to-pdf/
+├── public/
+│   └── icon.png                # Ícone da aplicação
+├── src/
+│   ├── main.tsx                # Entry point
+│   ├── App.tsx                 # Componente principal
+│   ├── styles.css              # Design system (CSS variables)
+│   ├── components/
+│   │   └── ThemeToggle.tsx     # Toggle dark/light mode
+│   └── lib/
+│       ├── markdown.ts         # Parser Markdown (zero deps)
+│       └── formatters.ts       # Formatadores social
 ├── index.html
 ├── package.json
 ├── vite.config.ts
-├── tsconfig.json
-├── tailwind.config.js
-├── postcss.config.cjs
-└── src/
-    ├── main.tsx                # Entry point
-    ├── App.tsx                 # Componente principal
-    ├── styles.css              # Design system (CSS variables)
-    ├── components/
-    │   └── ThemeToggle.tsx     # Toggle dark/light mode
-    └── lib/
-        ├── markdown.ts         # Parser Markdown (zero deps)
-        └── formatters.ts       # Formatadores social
+└── tailwind.config.js
 ```
 
 ---
@@ -102,32 +103,30 @@ guebly-readme-to-pdf/
 
 ## 📤 Deploy
 
-O projeto gera um bundle estático em `dist/`. Pode ser hospedado em qualquer plataforma:
+Bundle 100% estático em `dist/`. Hospede em qualquer plataforma:
 
-| Plataforma | Comando |
-|---|---|
-| Vercel | `vercel` |
-| Netlify | `netlify deploy --prod --dir=dist` |
-| GitHub Pages | `npx gh-pages -d dist` |
-| Cloudflare Pages | Build: `npm run build` · Output: `dist` |
+```bash
+# Vercel (recomendado)
+vercel
+
+# Netlify
+netlify deploy --prod --dir=dist
+
+# GitHub Pages
+npx gh-pages -d dist
+```
 
 ---
 
 ## 🤝 Contributing
 
-Contribuições são muito bem-vindas! Leia o [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir um PR.
-
----
-
-## 📋 Changelog
-
-Veja o [CHANGELOG.md](CHANGELOG.md) para o histórico de versões.
+Contribuições são bem-vindas! Leia o [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir um PR.
 
 ---
 
 ## 📄 License
 
-Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
+MIT — veja [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
